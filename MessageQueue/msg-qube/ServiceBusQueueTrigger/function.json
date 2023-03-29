@@ -4,8 +4,28 @@
       "name": "mySbMsg",
       "type": "serviceBusTrigger",
       "direction": "in",
-      "queueName": "myinputqueue",
-      "connection": ""
+      "queueName": "document-queue",
+      "connection": "AzureServiceBusConnectionString"
+    },
+    {
+      "name": "userData",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "Database1",
+      "collectionName": "User",
+      "connectionStringSetting": "CosmosConnectionString",
+      // Reference: https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2-input?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#queue-trigger-get-multiple-docs-using-sqlquery-1
+      "sqlQuery": "SELECT * FROM c WHERE c.id = {uuid}",
+      // Reference: https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2-input?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#queue-trigger-get-multiple-docs-using-sqlquery-1
+      // "id": "{queueTrigger_payload_property}",
+      // "partitionKey": "{queueTrigger_payload_property}",
+    },
+    {
+      "name": "myOutputBlob",
+      "type": "blob",
+      "direction": "out",
+      "path": "document/{uuid}.docx",
+      "connection": "AzureWebJobsStorage",
     }
   ],
   "scriptFile": "../dist/ServiceBusQueueTrigger/index.js"
