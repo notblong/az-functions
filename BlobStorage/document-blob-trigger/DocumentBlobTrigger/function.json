@@ -1,0 +1,19 @@
+{
+  "bindings": [
+    {
+      "name": "myBlob",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "document/{uuid}",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "name": "signalRMessages",
+      "type": "signalR",
+      "hubName": "app1signalr",
+      "direction": "out",
+      "connectionStringSetting": "AzureSignalRConnectionString"
+    }
+  ],
+  "scriptFile": "../dist/DocumentBlobTrigger/index.js"
+}
